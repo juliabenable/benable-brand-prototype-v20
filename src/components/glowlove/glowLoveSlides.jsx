@@ -663,10 +663,10 @@ export function StillGrowing() {
         </div>
       </div>
 
-      <blockquote className="gl-quote gl-quote--bar">
-        <p className="gl-quote__t">Roughly half the value of a creator campaign comes from the months after launch.</p>
-        <cite className="gl-quote__cite">— CMO, B2C consumer brand</cite>
-      </blockquote>
+      <div className="gl-insight">
+        <span className="gl-insight__label">Insight</span>
+        <p className="gl-insight__t">Roughly half the value of a creator campaign comes from the months after launch.</p>
+      </div>
     </div>
   );
 }

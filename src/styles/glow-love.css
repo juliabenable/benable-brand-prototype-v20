@@ -511,6 +511,29 @@
 /* Still-growing slide */
 .gl-grow { gap: var(--gap-2); }
 .gl-grow__sub { max-width: 540px; font-size: var(--fs-md); color: #4a4258; }
+/* Insight callout — a frosted card that frames the takeaway as a data
+   insight rather than an attributed quote (no cite). */
+.gl-insight {
+  max-width: 560px; margin: var(--gap-3) auto 0; text-align: left;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(160,107,255,0.20);
+  border-radius: 16px; padding: 16px 22px 18px;
+  box-shadow: 0 8px 24px rgba(120,80,140,0.10);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+}
+.gl-insight__label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c-purple); margin-bottom: 8px;
+}
+.gl-insight__label::before {
+  content: '✦'; font-size: 0.95em; line-height: 1;
+  background: linear-gradient(135deg, #ff6fae, #a06bff);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gl-insight__t { font-size: 21px; line-height: 1.4; font-weight: 600; color: var(--ink); }
 
 /* Closing — 'That's a wrap' + send-Katie-a-note mini CTA */
 .gl-close2 { gap: var(--gap-2); color: #fff; }
