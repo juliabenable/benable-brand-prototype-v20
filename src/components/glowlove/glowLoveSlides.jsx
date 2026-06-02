@@ -217,10 +217,9 @@ export function Cover() {
   return (
     <div className="gl-slide gl-slide--center">
       <Sparkles data={COVER_SPARKLES} />
-      <span className="gl-eyebrow">{BRAND} · Campaign complete</span>
-      <h1 className="gl-h1">Your campaign report<br /><span className="gl-accent">is ready.</span></h1>
+      <span className="gl-eyebrow">{BRAND} · {CAMPAIGN}</span>
+      <h1 className="gl-h1 gl-h1--serif">Your campaign report<br /><span className="gl-accent">is ready.</span></h1>
       <p className="gl-sub">Check out your results and highlights.</p>
-      <p className="gl-cover__campaign">{CAMPAIGN}</p>
     </div>
   );
 }
@@ -264,7 +263,7 @@ export function Reach() {
         })}
       </div>
       <p className="gl-sub gl-reach2__sub">each dot is one person</p>
-      <blockquote className="gl-quote">
+      <blockquote className="gl-quote gl-quote--bar">
         <p className="gl-quote__t">Awareness is the foundation of every marketing funnel. Every impression compounds — they're the seeds of tomorrow's customers.</p>
         <cite className="gl-quote__cite">— Marketing Lab, Brand Growth Report</cite>
       </blockquote>
@@ -272,10 +271,10 @@ export function Reach() {
   );
 }
 
-/* Engagement · 4 elements — 5× hero + You/Avg bar + ONE hero quote +
-   Benable-sourcing takeaway. Collapsed from the earlier 7-element stack
-   so each piece has clear hierarchy and the eye lands cleanly. */
-const HERO_QUOTE = WRAPPED_COMMENTS.find((c) => c.u === 'linnyboo88') || WRAPPED_COMMENTS[0];
+/* Engagement · 3 elements — 5× hero + You/Avg bar + Benable-sourcing
+   takeaway. The inline comment card was dropped so the eye lands on the
+   multiplier and the bar without competing with a quote (comments get
+   their own dedicated slide). */
 export function Engagement() {
   const play = usePlayOnMount();
   const er = useCountUp(TOTALS.viewER, { dec: 1, dur: 1100, delay: 600, play });
@@ -307,16 +306,7 @@ export function Engagement() {
         </div>
       </div>
 
-      {/* 3: ONE hero quote (was 4 faces + 3 chip quotes) */}
-      <div className="gl-eng-heroq">
-        <span className="gl-eng-heroq__av" style={{ background: avColor(HERO_QUOTE.u) }}>{HERO_QUOTE.u[0].toUpperCase()}</span>
-        <div className="gl-eng-heroq__body">
-          <p className="gl-eng-heroq__t">“{HERO_QUOTE.t}”</p>
-          <small className="gl-eng-heroq__meta">@{HERO_QUOTE.u} · {HERO_QUOTE.p === 'tt' ? 'TikTok' : 'Instagram'}</small>
-        </div>
-      </div>
-
-      {/* 4: bolder takeaway */}
+      {/* 3: bolder takeaway */}
       <p className="gl-eng-takeaway">
         Because of Benable's sourcing and vetting, <b>4 handpicked creators</b> drove <b>over 600 people</b> to like, comment, share, or bookmark.
       </p>
@@ -618,7 +608,7 @@ export function Katie() {
       <span className="gl-eyebrow">A note from Katie</span>
       <div className="gl-postcard">
         <span className="gl-postcard__tape" />
-        <p className="gl-postcard__msg">Hi {BRAND} team — what a first campaign. Your creators were genuinely excited about your brand, which we don't always see. We'll keep tuning the experience as we get to know you better. Don't ever hesitate to reach out with feedback, ideas, or anything. Personally so excited to be in this with you. ♥</p>
+        <p className="gl-postcard__msg">Hi {BRAND} team — what a first campaign. Your creators were genuinely excited about your brand, which we don't always see. We'll keep tuning the experience as we get to know you. Reach out any time with feedback or ideas — I'm so glad to be in this with you. ♥</p>
         <div className="gl-postcard__sign">
           <span className="gl-postcard__av">K</span>
           <div>
@@ -683,17 +673,15 @@ export function StillGrowing() {
 /* Final piece-out — sparkle burst on mount + Benable signature footer.
    Pure feel-good moment + optional 'send Katie a note' mini-CTA. */
 const SPARKLES_DATA = [
-  { kind: 'dot',   top: '18%', left: '14%', size: 6, delay: 0.10, rot: 0 },
-  { kind: 'dot',   top: '24%', left: '78%', size: 8, delay: 0.18, rot: 0 },
-  { kind: 'dot',   top: '34%', left: '9%',  size: 5, delay: 0.22, rot: 0 },
-  { kind: 'dot',   top: '62%', left: '85%', size: 6, delay: 0.32, rot: 0 },
-  { kind: 'dot',   top: '74%', left: '18%', size: 4, delay: 0.50, rot: 0 },
-  { kind: 'star',  top: '16%', left: '22%', size: 14, delay: 0.14, rot: 14 },
-  { kind: 'star',  top: '30%', left: '84%', size: 18, delay: 0.24, rot: -18 },
-  { kind: 'star',  top: '68%', left: '10%', size: 12, delay: 0.40, rot: 22 },
+  // Normalized to the cover's density/scale: 8 sparkles, edge-framed, sizes 5–16.
   { kind: 'heart', top: '20%', left: '50%', size: 16, delay: 0.06, rot: -8 },
-  { kind: 'heart', top: '78%', left: '55%', size: 13, delay: 0.46, rot: 12 },
-  { kind: 'star',  top: '80%', left: '88%', size: 11, delay: 0.36, rot: 30 },
+  { kind: 'star',  top: '16%', left: '22%', size: 15, delay: 0.14, rot: 14 },
+  { kind: 'star',  top: '30%', left: '84%', size: 13, delay: 0.24, rot: -18 },
+  { kind: 'heart', top: '78%', left: '55%', size: 14, delay: 0.46, rot: 12 },
+  { kind: 'star',  top: '70%', left: '12%', size: 12, delay: 0.40, rot: 22 },
+  { kind: 'dot',   top: '34%', left: '9%',  size: 5, delay: 0.22, rot: 0 },
+  { kind: 'dot',   top: '62%', left: '86%', size: 6, delay: 0.32, rot: 0 },
+  { kind: 'dot',   top: '24%', left: '78%', size: 5, delay: 0.18, rot: 0 },
 ];
 export function WrapClose() {
   const [open, setOpen] = useState(false);

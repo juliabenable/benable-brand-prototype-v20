@@ -104,6 +104,10 @@
 .gl-eyebrow { font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--eyebrow); }
 .gl-eyebrow--dot::before { content: '●'; color: #ff5d8f; margin-right: 7px; font-size: 9px; vertical-align: middle; }
 .gl-h1 { font-size: var(--fs-h1); font-weight: 800; letter-spacing: -0.035em; line-height: 0.98; color: var(--ink); margin: var(--head-gap) 0 var(--lede-gap); }
+/* Serif-italic variant — matches the closing "That's a wrap." title so the
+   cover and close bookend the deck in the same editorial voice. */
+.gl-h1--serif { font-family: var(--font-serif); font-style: italic; font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; }
+.gl-h1--serif .gl-accent { font-style: italic; }
 .gl-h2 { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.0; color: var(--ink); margin: var(--head-gap) 0 var(--lede-gap); }
 .gl-accent { background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .gl-sub { font-size: var(--fs-md); line-height: 1.5; color: var(--muted); max-width: 460px; margin: 6px 0; }
@@ -369,7 +373,7 @@
 .gl-postcard__tape { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 120px; height: 28px; background: rgba(255,226,150,0.72); box-shadow: 0 2px 3px rgba(0,0,0,0.06); transition: transform 0.4s cubic-bezier(.22,.7,.3,1); }
 .gl-postcard:hover .gl-postcard__tape { transform: translateX(-50%) rotate(-1deg) scale(1.04); }
 /* hand-font + 27px is the postcard's deliberate handwritten voice — warranted. */
-.gl-postcard__msg { font-family: var(--hand-font); font-size: 27px; line-height: 1.35; color: #3a3142; margin: 0; text-align: left; }
+.gl-postcard__msg { font-family: var(--hand-font); font-size: 26px; line-height: 1.5; color: #3a3142; margin: 0; text-align: left; }
 .gl-postcard__msg b { color: var(--c-purple); }
 /* Signature row: avatar + a LEFT-aligned name/role column. The inner
    div explicitly left-aligns so it doesn't inherit gl-slide--center's
@@ -829,6 +833,12 @@
   animation: glSpkIn 0.9s cubic-bezier(.2,.85,.3,1.2) forwards,
              glSpkFloat 3.4s ease-in-out infinite 0.9s;
   animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.9s);
+}
+/* Respect reduced-motion: show sparkles + growth arrow statically, no
+   looping float/pop or the continuous up-arrow drift. */
+@media (prefers-reduced-motion: reduce) {
+  .gl-spk { animation: none; opacity: 0.92; transform: rotate(var(--rot, 0deg)); }
+  .gl-grow__uparrow { animation: none; opacity: 1; transform: none; }
 }
 .gl-close2__signature {
   position: absolute; bottom: 18px; left: 0; right: 0;
