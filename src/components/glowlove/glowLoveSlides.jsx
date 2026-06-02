@@ -464,7 +464,7 @@ export function ContentSpotlight() {
   return (
     <div className="gl-slide gl-slide--center gl-content2">
       <div className="gl-cnt-head">
-        <h2 className="gl-h2 gl-content2__h"><span className="gl-accent">{TOTALS.pieces} new pieces</span> + {BENABLE_RECS.length} Benable picks for your brand.</h2>
+        <h2 className="gl-h2 gl-content2__h"><span className="gl-accent">{TOTALS.pieces + BENABLE_RECS.length} new pieces</span> about your brand.</h2>
       </div>
       <div className="gl-cf">
         {items.map((item, i) => {

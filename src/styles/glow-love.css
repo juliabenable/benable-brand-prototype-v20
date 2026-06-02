@@ -253,7 +253,7 @@
 /* You vs. Avg comparison bar — shifted off-centre to the LEFT so the eye
    reads left-to-right through the labels → bars rhythm (v19 behaviour). */
 .gl-erbar { width: min(560px, 86%); display: flex; flex-direction: column; gap: var(--gap-1); }
-.gl-eng .gl-erbar { align-self: flex-start; margin: var(--gap-3) 0 0 4%; }
+.gl-eng .gl-erbar { align-self: center; margin: var(--gap-3) 0 0; }
 .gl-erbar__row { display: flex; align-items: center; gap: var(--gap-2); }
 .gl-erbar__lbl { flex: 0 0 34px; text-align: right; font-size: var(--fs-xs); font-weight: 700; color: var(--muted-2); letter-spacing: 0.02em; }
 .gl-erbar__track { position: relative; flex: 1; height: 38px; background: rgba(120,92,160,0.10); border-radius: 999px; overflow: hidden; }
@@ -582,11 +582,11 @@
   padding: 15px 13px;
   box-sizing: border-box;
   box-shadow: 0 14px 34px rgba(80,50,110,0.26);
-  display: flex; flex-direction: column;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .gl-cf-card--rec.on { box-shadow: 0 22px 50px rgba(80,50,110,0.34); }
 .gl-bcard {
-  flex: 1 1 auto; min-height: 0;
+  flex: 0 0 auto;
   display: flex; flex-direction: column; gap: 7px;
   background: #fff;
   border-radius: 14px;
@@ -619,9 +619,9 @@
   font-family: var(--font-body); font-size: 10px; line-height: 1.4;
   color: #8a7fa0; margin: 0; text-align: left;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-  overflow: hidden; flex: 1 1 auto; min-height: 0;
+  overflow: hidden;
 }
-.gl-bcard__foot { display: flex; align-items: center; gap: 5px; margin-top: auto; }
+.gl-bcard__foot { display: flex; align-items: center; gap: 5px; }
 .gl-bcard__foot span {
   font-family: var(--font-body); font-weight: 800; font-size: 12px;
   letter-spacing: -0.01em; color: #1a1422;
@@ -735,12 +735,18 @@
 .gl-grow__chart { width: 100%; max-width: 480px; margin: var(--gap-2) 0 6px; }
 .gl-grow__chart svg { width: 100%; height: 88px; display: block; }
 .gl-grow__chart-legend {
+  position: relative;
   display: flex; justify-content: space-between; margin-top: 4px;
   font-family: var(--font-body);
   font-size: 9px; font-weight: 600;
   color: var(--muted-2); letter-spacing: 0.06em; text-transform: uppercase;
 }
-.gl-grow__chart-legend .now { color: var(--c-purple); font-weight: 800; }
+/* Align with the dashed 'now' marker drawn at x=155 in the 600-wide
+   viewBox (155/600 ≈ 25.83% of the chart width). */
+.gl-grow__chart-legend .now {
+  position: absolute; left: 25.83%; transform: translateX(-50%);
+  color: var(--c-purple); font-weight: 800;
+}
 
 /* ════════════════════════════════════════════════════════════════════
    Wrap-close · sparkles enter animation + signature footer (Study 8)
