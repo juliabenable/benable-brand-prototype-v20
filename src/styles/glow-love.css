@@ -466,16 +466,16 @@
    builds in roughly 1.5–2s with the stream feeling continuous. */
 .gl-wall .gl-wcard {
   opacity: 0;
-  transform: translateY(480px) scale(0.94);
-  animation: glWcardRise 0.95s cubic-bezier(.22,.85,.35,1.15) forwards;
-  animation-delay: calc(var(--i, 0) * 60ms);
+  transform: translateY(120px) scale(0.97);
+  animation: glWcardRise 0.8s cubic-bezier(.22,.85,.35,1.06) forwards;
+  animation-delay: calc(var(--i, 0) * 50ms);
   will-change: transform, opacity;
 }
 @keyframes glWcardRise {
-  0%   { opacity: 0; transform: translateY(480px) scale(0.94); box-shadow: 0 8px 20px rgba(80,50,90,0.10); }
-  15%  { opacity: 1; }
-  55%  { box-shadow: 0 18px 38px rgba(176,106,255,0.28); }
-  86%  { transform: translateY(-6px) scale(1); }
+  0%   { opacity: 0; transform: translateY(120px) scale(0.97); box-shadow: 0 8px 20px rgba(80,50,90,0.10); }
+  20%  { opacity: 1; }
+  55%  { box-shadow: 0 12px 26px rgba(176,106,255,0.16); }
+  88%  { transform: translateY(-2px) scale(1); }
   100% { opacity: 1; transform: translateY(0) scale(1); box-shadow: 0 8px 20px rgba(80,50,90,0.10); }
 }
 
