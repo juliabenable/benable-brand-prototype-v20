@@ -173,6 +173,41 @@ export function FloatingEmojis() {
   );
 }
 
+/* ---- floating sparkle layer (dots / stars / hearts), shared by the cover
+   and the closing slide. Bursts in on mount then gently floats. ---- */
+function Sparkles({ data, className }) {
+  return (
+    <div className={`gl-close2__sparkles${className ? ` ${className}` : ''}`} aria-hidden="true">
+      {data.map((s, i) => {
+        const style = { top: s.top, left: s.left, '--delay': `${s.delay}s`, '--rot': `${s.rot}deg` };
+        if (s.kind === 'dot') return <span key={i} className="gl-spk gl-spk--dot" style={{ ...style, width: s.size, height: s.size }} />;
+        if (s.kind === 'heart') return (
+          <svg key={i} className="gl-spk gl-spk--heart" viewBox="0 0 24 24" style={{ ...style, width: s.size, height: s.size }}>
+            <path d="M12 21s-7-4.5-9-9.5C1 6 5 3 8 4.5c2 1 3.5 3 4 4 .5-1 2-3 4-4 3-1.5 7 1.5 5 7-2 5-9 9.5-9 9.5z" />
+          </svg>
+        );
+        return (
+          <svg key={i} className="gl-spk gl-spk--star" viewBox="0 0 24 24" style={{ ...style, width: s.size, height: s.size }}>
+            <path d="M12 2 L14.4 9.6 22 12 L14.4 14.4 12 22 L9.6 14.4 2 12 L9.6 9.6 Z" />
+          </svg>
+        );
+      })}
+    </div>
+  );
+}
+
+/* Cover sparkles — kept to the edges so they frame the headline rather
+   than crowd it. A lighter scatter than the closing burst. */
+const COVER_SPARKLES = [
+  { kind: 'star',  top: '14%', left: '12%', size: 16, delay: 0.10, rot: -14 },
+  { kind: 'heart', top: '22%', left: '86%', size: 15, delay: 0.22, rot: 12 },
+  { kind: 'dot',   top: '40%', left: '7%',  size: 6,  delay: 0.30, rot: 0 },
+  { kind: 'star',  top: '70%', left: '90%', size: 13, delay: 0.18, rot: 20 },
+  { kind: 'heart', top: '80%', left: '14%', size: 14, delay: 0.40, rot: -10 },
+  { kind: 'dot',   top: '64%', left: '83%', size: 5,  delay: 0.46, rot: 0 },
+  { kind: 'dot',   top: '12%', left: '52%', size: 5,  delay: 0.14, rot: 0 },
+];
+
 /* ============================ slides ============================ */
 
 /* Cover · intro (no stats, no date — just a warm hand-off into the wrap).
@@ -181,6 +216,7 @@ export function FloatingEmojis() {
 export function Cover() {
   return (
     <div className="gl-slide gl-slide--center">
+      <Sparkles data={COVER_SPARKLES} />
       <span className="gl-eyebrow">{BRAND} · Campaign complete</span>
       <h1 className="gl-h1">Your campaign report<br /><span className="gl-accent">is ready.</span></h1>
       <p className="gl-sub">Check out your results and highlights.</p>
@@ -667,22 +703,7 @@ export function WrapClose() {
   return (
     <div className="gl-slide gl-slide--center gl-close2">
       {/* Sparkle burst on mount */}
-      <div className="gl-close2__sparkles" aria-hidden="true">
-        {SPARKLES_DATA.map((s, i) => {
-          const style = { top: s.top, left: s.left, '--delay': `${s.delay}s`, '--rot': `${s.rot}deg` };
-          if (s.kind === 'dot') return <span key={i} className="gl-spk gl-spk--dot" style={{ ...style, width: s.size, height: s.size }} />;
-          if (s.kind === 'heart') return (
-            <svg key={i} className="gl-spk gl-spk--heart" viewBox="0 0 24 24" style={{ ...style, width: s.size, height: s.size }}>
-              <path d="M12 21s-7-4.5-9-9.5C1 6 5 3 8 4.5c2 1 3.5 3 4 4 .5-1 2-3 4-4 3-1.5 7 1.5 5 7-2 5-9 9.5-9 9.5z" />
-            </svg>
-          );
-          return (
-            <svg key={i} className="gl-spk gl-spk--star" viewBox="0 0 24 24" style={{ ...style, width: s.size, height: s.size }}>
-              <path d="M12 2 L14.4 9.6 22 12 L14.4 14.4 12 22 L9.6 14.4 2 12 L9.6 9.6 Z" />
-            </svg>
-          );
-        })}
-      </div>
+      <Sparkles data={SPARKLES_DATA} />
 
       <span className="gl-eyebrow">{BRAND}</span>
       <h2 className="gl-close2__h">That's a <em className="gl-accent">wrap.</em></h2>
@@ -798,7 +819,8 @@ export const SLIDES = [
   { key: 'cover', grad: 'dark', dark: true, Body: Cover },
   // Content exploration: one-at-a-time spotlight crossfade.
   // Swap back to `Body: Content` to return to the marquee/drift version.
-  { key: 'content', grad: 'f', Body: ContentSpotlight },
+  // Dwell long enough for the coverflow to show ≥10 pieces (FLIP_MS=1500).
+  { key: 'content', grad: 'f', ms: 15000, Body: ContentSpotlight },
   { key: 'reach', grad: 'b', Body: Reach },
   // Engagement is the one slide that keeps the floating emojis.
   { key: 'engagement', grad: 'c', emoji: true, Body: Engagement },

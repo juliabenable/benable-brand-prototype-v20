@@ -53,9 +53,11 @@ export default function GlowLoveWrap({ onBack, embedded = false }) {
 
   useEffect(() => {
     if (paused || isLast) return undefined;
-    const id = setTimeout(next, SLIDE_MS);
+    // Slides can opt into a longer dwell (e.g. the content coverflow needs
+    // time to cycle through ~10 pieces before advancing).
+    const id = setTimeout(next, slide.ms || SLIDE_MS);
     return () => clearTimeout(id);
-  }, [index, paused, isLast, next]);
+  }, [index, paused, isLast, next, slide]);
 
   useEffect(() => {
     const onKey = (e) => {

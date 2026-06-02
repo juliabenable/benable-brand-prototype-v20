@@ -362,8 +362,12 @@
 
 /* Note · handwritten postcard — tilted -1.5deg for paper feel. */
 .gl-postcard { position: relative; max-width: 540px; background: #fffdf7; border-radius: 8px; padding: 36px 34px 26px;
-  box-shadow: 0 22px 46px rgba(120,80,140,0.22); margin-top: var(--gap-3); transform: rotate(-1.5deg); }
-.gl-postcard__tape { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 120px; height: 28px; background: rgba(255,226,150,0.72); box-shadow: 0 2px 3px rgba(0,0,0,0.06); }
+  box-shadow: 0 22px 46px rgba(120,80,140,0.22); margin-top: var(--gap-3); transform: rotate(-1.5deg);
+  transition: transform 0.4s cubic-bezier(.22,.7,.3,1), box-shadow 0.4s ease; }
+/* Subtle hover: the note straightens and lifts a touch, as if picked up. */
+.gl-postcard:hover { transform: rotate(-0.3deg) translateY(-6px); box-shadow: 0 30px 58px rgba(120,80,140,0.3); }
+.gl-postcard__tape { position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 120px; height: 28px; background: rgba(255,226,150,0.72); box-shadow: 0 2px 3px rgba(0,0,0,0.06); transition: transform 0.4s cubic-bezier(.22,.7,.3,1); }
+.gl-postcard:hover .gl-postcard__tape { transform: translateX(-50%) rotate(-1deg) scale(1.04); }
 /* hand-font + 27px is the postcard's deliberate handwritten voice — warranted. */
 .gl-postcard__msg { font-family: var(--hand-font); font-size: 27px; line-height: 1.35; color: #3a3142; margin: 0; text-align: left; }
 .gl-postcard__msg b { color: var(--c-purple); }
@@ -498,7 +502,7 @@
 .gl-close2__cancel { background: transparent; border: 0; color: rgba(255,255,255,0.6); font-size: var(--fs-sm); font-weight: 600; padding: 10px 14px; cursor: pointer; }
 .gl-close2__cancel:hover { color: #fff; }
 .gl-close2__send { background: var(--grad-btn); border: 0; color: #fff; font-size: var(--fs-sm); font-weight: 700; padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: transform 0.12s ease; }
-.gl-close2__send:disabled { opacity: 0.4; cursor: default; }
+.gl-close2__send:disabled { background: rgba(255,255,255,0.16); color: rgba(255,255,255,0.85); -webkit-text-fill-color: rgba(255,255,255,0.85); cursor: default; }
 .gl-close2__send:not(:disabled):hover { transform: scale(1.02); }
 .gl-close2__sent { margin-top: var(--gap-3); font-size: var(--fs-md); color: #ffd1ea; }
 
