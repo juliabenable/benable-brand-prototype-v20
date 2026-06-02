@@ -598,6 +598,7 @@ export function Katie() {
 /* "It's still growing" — this campaign isn't over yet. CMO-style quote
    landing the half-of-the-value-comes-after framing. */
 export function StillGrowing() {
+  const play = usePlayOnMount();
   return (
     <div className="gl-slide gl-slide--center gl-grow">
       <span className="gl-eyebrow">And this is just the start</span>
@@ -605,8 +606,10 @@ export function StillGrowing() {
       <p className="gl-sub gl-grow__sub">All of this content is less than two weeks old — and it keeps working for you long after the campaign ends.</p>
 
       {/* Visual proof of the claim — a sparkline showing growth over time
-          with a "now" marker that the eye lands on. */}
-      <div className="gl-grow__chart" aria-hidden="true">
+          with a "now" marker that the eye lands on. On mount the curve draws
+          in, the area fills in behind it, the 'now' dot pops, and an arrow
+          floats up where the line exits — reinforcing "still growing". */}
+      <div className={`gl-grow__chart${play ? ' is-play' : ''}`} aria-hidden="true">
         <svg viewBox="0 0 600 100" preserveAspectRatio="none">
           <defs>
             <linearGradient id="growLine" x1="0" y1="0" x2="1" y2="0">
@@ -618,16 +621,17 @@ export function StillGrowing() {
             </linearGradient>
           </defs>
           {/* area fill under curve */}
-          <path d="M0,90 C40,86 70,76 100,68 C130,60 145,55 155,53 L155,100 L0,100 Z" fill="url(#growFill)" opacity="0.6" />
-          <path d="M155,53 C200,48 240,36 290,22 C320,14 350,8 600,3 L600,100 L155,100 Z" fill="url(#growFill)" opacity="0.9" />
+          <path className="gl-grow__area" style={{ '--area-op': 0.6 }} d="M0,90 C40,86 70,76 100,68 C130,60 145,55 155,53 L155,100 L0,100 Z" fill="url(#growFill)" />
+          <path className="gl-grow__area" style={{ '--area-op': 0.9 }} d="M155,53 C200,48 240,36 290,22 C320,14 350,8 600,3 L600,100 L155,100 Z" fill="url(#growFill)" />
           {/* curve */}
-          <path d="M0,90 C40,86 70,76 100,68 C130,60 145,55 155,53 C200,48 240,36 290,22 C320,14 350,8 600,3"
-                stroke="url(#growLine)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <path className="gl-grow__curve" d="M0,90 C40,86 70,76 100,68 C130,60 145,55 155,53 C200,48 240,36 290,22 C320,14 350,8 600,3"
+                stroke="url(#growLine)" strokeWidth="2.5" fill="none" strokeLinecap="round" pathLength="1" />
           {/* 'now' dashed line + dot */}
-          <line x1="155" y1="0" x2="155" y2="100" stroke="rgba(120,80,140,0.5)" strokeWidth="1" strokeDasharray="3 3" />
-          <circle cx="155" cy="53" r="5" fill="#a06bff" />
-          <circle cx="155" cy="53" r="5" fill="none" stroke="#fff" strokeWidth="1.5" />
+          <line className="gl-grow__nowline" x1="155" y1="0" x2="155" y2="100" stroke="rgba(120,80,140,0.5)" strokeWidth="1" strokeDasharray="3 3" />
+          <circle className="gl-grow__dot" cx="155" cy="53" r="5" fill="#a06bff" />
+          <circle className="gl-grow__dot" cx="155" cy="53" r="5" fill="none" stroke="#fff" strokeWidth="1.5" />
         </svg>
+        <span className="gl-grow__arrow" aria-hidden="true">↗</span>
         <div className="gl-grow__chart-legend">
           <span>launched</span><span className="now">↑ now</span><span>3 months</span>
         </div>
