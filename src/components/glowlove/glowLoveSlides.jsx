@@ -249,8 +249,8 @@ export function Reach() {
   const total = TOTALS.reach.high;
   return (
     <div className="gl-slide gl-slide--center gl-reach2">
-      <span className="gl-eyebrow">Brand awareness</span>
-      <h2 className="gl-h2 gl-reach2__h">Over <span className="gl-accent">{fmt(total)} people</span><br />noticed your brand.</h2>
+      <span className="gl-eyebrow">Reach</span>
+      <h2 className="gl-h2 gl-reach2__h">Generated <span className="gl-accent">brand awareness</span><br />with over {fmt(total)} people.</h2>
       <div className={`gl-hwrap gl-hwrap--dense ${play ? 'play' : ''}`} aria-hidden="true">
         {HEART.map((p, i) => {
           const d = Math.hypot(p[2], p[3] - 0.15);
@@ -500,7 +500,7 @@ export function ContentSpotlight() {
   return (
     <div className="gl-slide gl-slide--center gl-content2">
       <div className="gl-cnt-head">
-        <h2 className="gl-h2 gl-content2__h"><span className="gl-accent">{TOTALS.pieces + BENABLE_RECS.length} new pieces</span> about your brand.</h2>
+        <h2 className="gl-h2 gl-content2__h">In one easy, seamless campaign, you generated <span className="gl-accent">{TOTALS.pieces + BENABLE_RECS.length} new pieces of content</span> about your brand.</h2>
       </div>
       <div className="gl-cf">
         {items.map((item, i) => {

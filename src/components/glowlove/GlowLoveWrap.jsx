@@ -57,7 +57,7 @@ export default function GlowLoveWrap({ onBack, embedded = false }) {
     // time to cycle through ~10 pieces before advancing).
     const id = setTimeout(next, slide.ms || SLIDE_MS);
     return () => clearTimeout(id);
-  }, [index, paused, isLast, next, slide]);
+  }, [index, paused, isLast, next, slide.ms]);
 
   useEffect(() => {
     const onKey = (e) => {
