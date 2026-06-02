@@ -9,7 +9,7 @@ export const TOTALS = {
   observedViews: 2970,        // hard observed floor (public TikTok/Reel views)
   engagements: 609,           // likes + comments + shares
   viewER: 20.5,               // 609 / 2970
-  benchmark: 4,               // industry avg ER
+  benchmark: 6,               // industry avg ER
   reach: { floor: 2970, low: 3800, base: 4700, high: 5500 },
   creators: 4,
   pieces: 13,

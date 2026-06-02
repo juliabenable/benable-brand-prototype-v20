@@ -232,11 +232,12 @@ export function Engagement() {
   const SCALE_MAX = 24;
   const youPct = Math.min(100, (TOTALS.viewER / SCALE_MAX) * 100);
   const avgPct = (TOTALS.benchmark / SCALE_MAX) * 100;
+  const mult = Math.round(TOTALS.viewER / TOTALS.benchmark);
   return (
     <div className="gl-slide gl-slide--center gl-eng">
       {/* 1: hero stat */}
       <span className="gl-eyebrow">Engagement rate</span>
-      <div className={`gl-five ${on}`}>5×</div>
+      <div className={`gl-five ${on}`}>{mult}×</div>
       <div className="gl-five-sub">the industry benchmark</div>
 
       {/* 2: bar comparison */}
@@ -409,21 +410,39 @@ const BENABLE_RECS = [
   },
 ];
 
-const RING_MS = 1300;
-const RING_RADIUS = 540; // bigger ring to fit 13 posts + 6 recs without crowding
+const FLIP_MS = 1500;
+
+/* Instagram-style verified tick for the Benable list-card header. */
+const VerifiedTick = ({ size = 13 }) => (
+  <svg className="gl-bcard__tick" width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="11" fill="#3897f0" />
+    <path d="M7 12.4l3.2 3.2L17 9" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 export function ContentSpotlight() {
-  // Mix reel posts + Benable recs into one carousel — both card types
-  // ride the same ring, just rendered differently when active.
-  const items = useMemo(() => [
-    ...ALL_POSTS.map((p) => ({ kind: 'post', data: p })),
-    ...BENABLE_RECS.map((r) => ({ kind: 'rec', data: r })),
-  ], []);
+  // One carousel mixes reel posts + Benable rec cards; both flip through
+  // the same compact coverflow. Interleave ~1 Benable rec after every 2
+  // reel posts so the Benable cards surface early — the deck only lingers
+  // on this slide a few flips before auto-advancing, so appending them at
+  // the end would mean they never reach center.
+  const items = useMemo(() => {
+    const posts = ALL_POSTS.map((p) => ({ kind: 'post', data: p }));
+    const recs = BENABLE_RECS.map((r) => ({ kind: 'rec', data: r }));
+    const out = [];
+    let pi = 0, ri = 0;
+    while (pi < posts.length || ri < recs.length) {
+      if (pi < posts.length) out.push(posts[pi++]);
+      if (pi < posts.length) out.push(posts[pi++]);
+      if (ri < recs.length) out.push(recs[ri++]);
+    }
+    return out;
+  }, []);
   const N = items.length;
-  const STEP = 360 / N;
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setIdx((i) => (i + 1) % N), RING_MS);
+    const id = setInterval(() => setIdx((i) => (i + 1) % N), FLIP_MS);
     return () => clearInterval(id);
   }, [N]);
 
@@ -432,50 +451,55 @@ export function ContentSpotlight() {
       <div className="gl-cnt-head">
         <h2 className="gl-h2 gl-content2__h"><span className="gl-accent">{TOTALS.pieces} new pieces</span> + {BENABLE_RECS.length} Benable picks for your brand.</h2>
       </div>
-      <div className="gl-ring-stage">
-        <div className="gl-ring" style={{ transform: `rotateY(${-idx * STEP}deg)` }}>
-          {items.map((item, i) => {
-            const placement = i * STEP;
-            const counter = (idx - i) * STEP;
-            const isActive = i === idx;
-            const transform = `rotateY(${placement}deg) translateZ(${RING_RADIUS}px) rotateY(${counter}deg)`;
-            if (item.kind === 'post') {
-              const p = item.data;
-              const [pcI, labelI] = PLAT_META[p.plat] || PLAT_META.TikTok;
-              return (
-                <div key={`p${i}`} className={`gl-ring-card ${isActive ? 'on' : ''}`} style={{ transform }}>
-                  <span className="gl-ring-card__img" style={{ backgroundImage: `url(${p.img})` }} />
-                  <span className={`gl-ring-card__plat gl-ring-card__plat--${pcI}`}><PlatGlyph p={pcI} /> {labelI}</span>
-                  <span className="gl-ring-card__tag">
-                    <span className="gl-ring-card__av" style={{ backgroundImage: `url(${p.creator.pic})` }} />
-                    <span className="gl-ring-card__name"><b>{p.creator.name}</b><small>{p.creator.handle}</small></span>
-                  </span>
-                </div>
-              );
-            }
-            // Benable recommendation card — clean product card with coral
-            // "Benable pick" pill, title, separate creator row, italic
-            // review quote underneath.
-            const r = item.data;
+      <div className="gl-cf">
+        {items.map((item, i) => {
+          // Circular signed distance from the active card so the deck wraps.
+          let d = i - idx;
+          if (d > N / 2) d -= N;
+          else if (d < -N / 2) d += N;
+          const ad = Math.abs(d);
+          const sign = Math.sign(d);
+          const shown = ad <= 2;
+          const tx = sign * (ad === 0 ? 0 : ad === 1 ? 132 : 224);
+          const tz = ad === 0 ? 0 : -ad * 80;
+          const rotY = ad === 0 ? 0 : -sign * 24;
+          const scale = ad === 0 ? 1 : ad === 1 ? 0.82 : 0.66;
+          const transform = `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${rotY}deg) scale(${scale})`;
+          const style = { transform, zIndex: 50 - ad, opacity: shown ? (ad === 0 ? 1 : ad === 1 ? 0.7 : 0.32) : 0 };
+          const isActive = ad === 0;
+
+          if (item.kind === 'post') {
+            const p = item.data;
+            const [pcI, labelI] = PLAT_META[p.plat] || PLAT_META.TikTok;
             return (
-              <div key={`r${i}`} className={`gl-ring-card gl-ring-card--rec ${isActive ? 'on' : ''}`} style={{ transform }}>
-                <span className="gl-rec__img" style={{ backgroundImage: `url(${r.img})` }}>
-                  <span className="gl-rec__badge" aria-label="Benable pick">
-                    <BenableHeart /> Pick
-                  </span>
+              <div key={`p${i}`} className={`gl-cf-card ${isActive ? 'on' : ''}`} style={style}>
+                <span className="gl-ring-card__img" style={{ backgroundImage: `url(${p.img})` }} />
+                <span className={`gl-ring-card__plat gl-ring-card__plat--${pcI}`}><PlatGlyph p={pcI} /> {labelI}</span>
+                <span className="gl-ring-card__tag">
+                  <span className="gl-ring-card__av" style={{ backgroundImage: `url(${p.creator.pic})` }} />
+                  <span className="gl-ring-card__name"><b>{p.creator.name}</b><small>{p.creator.handle}</small></span>
                 </span>
-                <div className="gl-rec__body">
-                  <div className="gl-rec__title">{r.title}</div>
-                  <div className="gl-rec__creator-row">
-                    <span className="gl-rec__av" style={{ backgroundImage: `url(${r.reviewer.pic})` }} />
-                    <span className="gl-rec__creator-name">{r.reviewer.handle}</span>
-                  </div>
-                  <p className="gl-rec__review">“{r.reviewText}”</p>
-                </div>
               </div>
             );
-          })}
-        </div>
+          }
+          // Benable rec — list-card template: gradient frame + white card.
+          const r = item.data;
+          return (
+            <div key={`r${i}`} className={`gl-cf-card gl-cf-card--rec ${isActive ? 'on' : ''}`} style={style}>
+              <div className="gl-bcard">
+                <div className="gl-bcard__head">
+                  <span className="gl-bcard__av" style={{ backgroundImage: `url(${r.reviewer.pic})` }} />
+                  <span className="gl-bcard__name">{r.reviewer.name}</span>
+                  <VerifiedTick />
+                </div>
+                <span className="gl-bcard__img" style={{ backgroundImage: `url(${r.img})` }} />
+                <div className="gl-bcard__title">{r.title}</div>
+                <p className="gl-bcard__desc">{r.reviewText}</p>
+                <div className="gl-bcard__foot"><BenableMark size={15} /> <span>Benable</span></div>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div className="gl-spot__count">{idx + 1} <span>/ {N}</span></div>
     </div>
