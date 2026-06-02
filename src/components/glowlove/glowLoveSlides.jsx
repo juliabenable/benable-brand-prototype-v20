@@ -53,6 +53,21 @@ const BenableHeart = ({ className }) => (
    of using the favicon PNG because the favicon is a CIRCLE, while the
    official brand mark sits in a squircle. The gradient stops are tuned to
    match the app icon shipped on benable.com. */
+// Standalone black "b" logomark glyph (no squircle), traced from the
+// official Benable wordmark — used on light surfaces like the rec cards.
+const BenableGlyph = ({ className, size = 16 }) => (
+  <svg className={className} viewBox="11 7 27 34" width={size} height={size} aria-hidden="true">
+    <path
+      fill="#0d0a12"
+      d="M29.1066 23.2077C28.9177 23.1905 28.8662 22.9329 29.0379 22.847C30.0167 22.3147 30.8067 21.5419 31.3734 20.5459C32.0775 19.3266 32.4381 17.9871 32.4381 16.5102C32.4381 15.1192 32.1118 13.8141 31.4421 12.5776C30.7724 11.3412 29.7763 10.3451 28.4197 9.55517C27.0802 8.76522 25.4316 8.37024 23.5082 8.37024H13.7196C13.0155 8.37024 12.4316 8.95412 12.4316 9.65821V38.1653C12.4316 38.8694 13.0155 39.4533 13.7196 39.4533H28.2308C32.5412 39.4533 36.2333 36.1561 36.5081 31.8457C36.8001 27.3807 33.417 23.6198 29.1066 23.2077Z"
+    />
+    <path
+      fill="#fff"
+      d="M29.8954 32.9618C28.4872 33.6487 26.9244 33.9922 25.3789 33.9922C24.4 33.9922 23.4212 33.8548 22.4766 33.58C20.0381 32.8587 17.8915 31.193 16.552 28.9948C16.3631 28.6685 16.4489 28.2564 16.7752 28.0503C17.1015 27.8442 17.5137 27.9473 17.7026 28.2736C18.8531 30.1798 20.7422 31.6223 22.8544 32.2577C24.9667 32.8931 27.3194 32.687 29.3115 31.7253C29.6549 31.5536 30.0499 31.7081 30.2216 32.0516C30.3762 32.3779 30.2388 32.79 29.8954 32.9618Z"
+    />
+  </svg>
+);
+
 const BenableMark = ({ className, size = 22 }) => (
   <svg className={className} viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
     <defs>
@@ -495,7 +510,7 @@ export function ContentSpotlight() {
                 <span className="gl-bcard__img" style={{ backgroundImage: `url(${r.img})` }} />
                 <div className="gl-bcard__title">{r.title}</div>
                 <p className="gl-bcard__desc">{r.reviewText}</p>
-                <div className="gl-bcard__foot"><BenableMark size={15} /> <span>Benable</span></div>
+                <div className="gl-bcard__foot"><BenableGlyph size={16} /> <span>Benable</span></div>
               </div>
             </div>
           );

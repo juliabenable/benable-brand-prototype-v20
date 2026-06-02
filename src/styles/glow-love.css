@@ -611,13 +611,13 @@
 }
 .gl-bcard__title {
   font-family: var(--font-body); font-weight: 800; font-size: 13px;
-  line-height: 1.2; letter-spacing: -0.01em; color: var(--ink);
+  line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); text-align: left;
   display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
   overflow: hidden; margin: 0;
 }
 .gl-bcard__desc {
   font-family: var(--font-body); font-size: 10px; line-height: 1.4;
-  color: #8a7fa0; margin: 0;
+  color: #8a7fa0; margin: 0; text-align: left;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   overflow: hidden; flex: 1 1 auto; min-height: 0;
 }
