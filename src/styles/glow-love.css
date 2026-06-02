@@ -380,7 +380,7 @@
    text-align: center. */
 .gl-postcard__sign { display: flex; align-items: center; gap: var(--gap-2); margin-top: var(--gap-3); text-align: left; }
 .gl-postcard__sign > div { text-align: left; display: flex; flex-direction: column; line-height: 1.15; }
-.gl-postcard__av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg,#ff8fb1,#a06bff); color: #fff; font-weight: 700; font-size: var(--fs-lg); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.gl-postcard__av { width: 46px; height: 46px; border-radius: 50%; background: #f0ecff center/cover no-repeat; box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(80,50,110,0.22); flex: 0 0 auto; }
 .gl-postcard__sign b { font-family: var(--hand-font); font-size: 23px; color: var(--ink); display: block; line-height: 1.1; }
 .gl-postcard__sign small { font-size: var(--fs-xs); color: var(--muted-2); display: block; margin-top: 2px; }
 

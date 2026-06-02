@@ -12,6 +12,7 @@ const IG = WRAPPED_COMMENTS.filter((c) => c.p === 'ig');
 const TT_PCT = Math.round((PLATFORM.tiktok / (PLATFORM.tiktok + PLATFORM.reels)) * 100);
 const IG_PCT = 100 - TT_PCT;
 const CAMPAIGN = "Experience 28 Litsea's Award Winning Body Oil";
+const KATIE_AVATAR = 'https://assets.benable.com/users/146358/avatar_url/4f2cc1a7334a80d5ea71.jpeg';
 
 /* Real platform logos (same marks used in the core platform) — sized to 1em
    so they scale with the container's font-size and inherit its color. */
@@ -610,7 +611,7 @@ export function Katie() {
         <span className="gl-postcard__tape" />
         <p className="gl-postcard__msg">Hi {BRAND} team — what a first campaign. Your creators were genuinely excited about your brand, which we don't always see. We'll keep tuning the experience as we get to know you. Reach out any time with feedback or ideas — I'm so glad to be in this with you. ♥</p>
         <div className="gl-postcard__sign">
-          <span className="gl-postcard__av">K</span>
+          <span className="gl-postcard__av" style={{ backgroundImage: `url(${KATIE_AVATAR})` }} aria-label="Katie" role="img" />
           <div>
             <b>Katie</b>
             <small>Head of Brand Partnerships · your personal concierge</small>
