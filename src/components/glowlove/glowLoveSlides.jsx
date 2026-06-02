@@ -638,7 +638,7 @@ export function StillGrowing() {
   return (
     <div className="gl-slide gl-slide--center gl-grow">
       <span className="gl-eyebrow">And this is just the start</span>
-      <h2 className="gl-h2">Your content is <span className="gl-accent">still growing.</span></h2>
+      <h2 className="gl-h2 gl-grow__title">Your content is <span className="gl-accent">still growing.</span><span className="gl-grow__uparrow" aria-hidden="true">↑</span></h2>
       <p className="gl-sub gl-grow__sub">All of this content is less than two weeks old — and it keeps working for you long after the campaign ends.</p>
 
       {/* Visual proof of the claim — a sparkline showing growth over time
@@ -667,13 +667,12 @@ export function StillGrowing() {
           <circle className="gl-grow__dot" cx="155" cy="53" r="5" fill="#a06bff" />
           <circle className="gl-grow__dot" cx="155" cy="53" r="5" fill="none" stroke="#fff" strokeWidth="1.5" />
         </svg>
-        <span className="gl-grow__arrow" aria-hidden="true">↗</span>
         <div className="gl-grow__chart-legend">
           <span>launched</span><span className="now">↑ now</span><span>3 months</span>
         </div>
       </div>
 
-      <blockquote className="gl-quote gl-quote--bold">
+      <blockquote className="gl-quote gl-quote--bar">
         <p className="gl-quote__t">Roughly half the value of a creator campaign comes from the months after launch.</p>
         <cite className="gl-quote__cite">— CMO, B2C consumer brand</cite>
       </blockquote>
