@@ -613,7 +613,7 @@ export function Katie() {
           <span className="gl-postcard__av" style={{ backgroundImage: `url(${KATIE_AVATAR})` }} aria-label="Katie" role="img" />
           <div>
             <b>Katie</b>
-            <small>Head of Brand Partnerships · your personal concierge</small>
+            <small>Head of Brand Partnerships — aka your personal concierge</small>
           </div>
         </div>
       </div>
