@@ -266,7 +266,6 @@ export function Reach() {
       <p className="gl-sub gl-reach2__sub">each dot is one person</p>
       <blockquote className="gl-quote gl-quote--bar">
         <p className="gl-quote__t">Awareness is the foundation of every marketing funnel. Every impression compounds — they're the seeds of tomorrow's customers.</p>
-        <cite className="gl-quote__cite">— Marketing Lab, Brand Growth Report</cite>
       </blockquote>
     </div>
   );
