@@ -313,16 +313,10 @@
    (rather than an overlay painted on top), so the cards melt cleanly into
    the slide gradient regardless of the bg color. */
 .gl-wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap-1); max-width: 920px; width: 100%; margin: 0 auto; max-height: 500px; overflow: hidden; align-content: start;
-  /* The wall is meant to bleed past the frame ("…and many more"). Fade both
-     the bottom AND the right edge so the cards melt into the gradient on
-     whichever side they overflow, instead of hard-clipping. Two mask layers
-     intersected: a pixel is visible only where BOTH layers are opaque. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%),
-                      linear-gradient(to right, #000 0%, #000 84%, transparent 100%);
-  -webkit-mask-composite: source-in;
-          mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%),
-                      linear-gradient(to right, #000 0%, #000 84%, transparent 100%);
-          mask-composite: intersect;
+  /* The wall is meant to bleed past the frame ("…and many more"). Fade the
+     bottom edge so the cards melt into the gradient instead of hard-clipping. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
 }
 .gl-wcard { position: relative; background: #fff; border-radius: 14px; padding: 11px 12px;
   box-shadow: 0 8px 20px rgba(80,50,90,0.1); transform: rotate(var(--t)); }
